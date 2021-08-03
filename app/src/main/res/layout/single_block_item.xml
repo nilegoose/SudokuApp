@@ -12,7 +12,7 @@
         android:orientation="vertical">
 
         <View
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="0.5dp"
             android:background="@color/black" />
 
@@ -47,13 +47,6 @@
                 android:layout_height="0dp"
                 android:layout_weight="1" />
 
-            <!--
-            <View
-                android:layout_width="0dp"
-                android:layout_height="0dp"
-                android:layout_weight="1" />
-                -->
-
 
             <View
                 android:layout_width="0.5dp"
@@ -62,7 +55,7 @@
         </androidx.appcompat.widget.LinearLayoutCompat>
 
         <View
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="0.5dp"
             android:background="@color/black" />
 

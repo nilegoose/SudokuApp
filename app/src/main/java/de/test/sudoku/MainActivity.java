@@ -1,7 +1,11 @@
 package de.test.sudoku;
 
+import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.core.view.GravityCompat;
+import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.ListAdapter;
@@ -10,7 +14,11 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
+import android.view.MenuItem;
+import android.view.View;
 import android.widget.TextView;
+
+import com.google.android.material.navigation.NavigationView;
 
 import java.util.ArrayList;
 
@@ -32,11 +40,14 @@ public class MainActivity extends AppCompatActivity{
     private Integer[] wholeList = new Integer[81];
     private ArrayList<Block> initialList;
     private String gameName ="NoName";
+    private DrawerLayout drawer;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        setSideNavigation();
         //addFragment(savedInstanceState);
         TemplateHelper dbHelper = new TemplateHelper(this);
         Game game = dbHelper.getGame("default template");
@@ -95,7 +106,6 @@ public class MainActivity extends AppCompatActivity{
                 TemplateHelper dbHelper = new TemplateHelper(MainActivity.this);
                 dbHelper.saveGame(game);
                 if(gameFinished()){
-                    Log.d("game Finished", ".............");
                     AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
                     builder.setMessage("you win");
                     builder.setCancelable(true);
@@ -125,4 +135,36 @@ public class MainActivity extends AppCompatActivity{
                     .commit();
         }
     }*/
+
+    public void setSideNavigation(){
+        Toolbar toolbar = findViewById(R.id.toolbar_main);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayShowTitleEnabled(false);
+        drawer = findViewById(R.id.drawer_main);
+        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawer, toolbar,
+                R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+        toggle.setDrawerIndicatorEnabled(false);
+        toolbar.setNavigationIcon(R.drawable.ic_baseline_list_24);
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+                                                 @Override
+                                                 public void onClick(View v) {
+                                                     drawer.openDrawer(GravityCompat.START);
+                                                 }
+                                             }
+        );
+        drawer.addDrawerListener(toggle);
+        toggle.syncState();
+        NavigationView navigationView = findViewById(R.id.navi);
+        navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(MenuItem item) {
+                switch(item.getItemId()){
+                    case R.id.nav_random:
+                        return false;
+                }
+                return true;
+            }
+        });
+        //drawer.openDrawer(GravityCompat.START);
+    }
 }

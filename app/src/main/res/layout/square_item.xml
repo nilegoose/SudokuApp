@@ -2,7 +2,7 @@
 <androidx.cardview.widget.CardView
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="match_parent"
+    android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     app:cardCornerRadius="0dp"
     android:background="@drawable/card_view_border"
@@ -12,39 +12,49 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:paddingBottom="1dp">
+        android:paddingBottom="1dp"
+        android:paddingRight="1dp">
 
         <View
             android:layout_width="wrap_content"
             android:layout_height="1dp"
             android:background="@color/teal_700" />
 
-        <androidx.appcompat.widget.LinearLayoutCompat
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:layout_height="wrap_content">
 
 
-            <View
+            <ViewAnimator
                 android:layout_width="1dp"
-                android:layout_height="match_parent"
-                android:background="@color/purple_500" />
+                android:layout_height="0dp"
+                android:background="@color/purple_500"
+                android:id="@+id/left_square_item"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"/>
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/square_recyc_main"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:padding="4dp" />
+                android:padding="4dp"
+                app:layout_constraintStart_toEndOf="@+id/left_square_item"
+                app:layout_constraintEnd_toStartOf="@id/right_square_item"
+                app:layout_constraintTop_toTopOf="parent"/>
 
 
-            <View
+            <ViewAnimator
                 android:layout_width="1dp"
-                android:layout_height="match_parent"
+                android:layout_height="0dp"
                 android:background="@color/purple_500"
-                android:layout_weight="1"/>
+                android:id="@+id/right_square_item"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"/>
 
 
-        </androidx.appcompat.widget.LinearLayoutCompat>
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
 
         <View
